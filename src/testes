@@ -1,0 +1,223 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+tela_Cadastrar.java
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+public class tela_Cadastrar {
+
+    public static void telaCadastrar() {
+        JFrame telaCadastrar = new JFrame("Tela Cadastrar");
+
+        // Labels
+        JLabel cadastrarCliente = new JLabel("CADASTRAR CLIENTE");
+        cadastrarCliente.setFont(new Font("Arial", Font.BOLD, 36));
+        JLabel nomeLabel = new JLabel("Nome:");
+        JLabel emailLabel = new JLabel("Email:");
+        JLabel telefoneLabel = new JLabel("Telefone:");
+        JLabel cpfLabel = new JLabel("CPF:");
+        JLabel rgLabel = new JLabel("RG:");
+        JLabel enderecoLabel = new JLabel("Endereço:");
+        JLabel cepLabel = new JLabel("CEP:");
+        JLabel cidadeLabel = new JLabel("Cidade:");
+        JLabel estadoLabel = new JLabel("Estado:");
+
+        // Text fields
+        JTextField textoNome = new JTextField();
+        JTextField email = new JTextField();
+        JTextField telefone = new JTextField();
+        JTextField CPF = new JTextField();
+        JTextField RG = new JTextField();
+        JTextField endereco = new JTextField();
+        JTextField CEP = new JTextField();
+        JTextField cidade = new JTextField();
+        JTextField estado = new JTextField();
+
+        // Apply KeyListener to ensure only numbers and limit length
+        addNumberValidation(telefone, 11);
+        addNumberValidation(CPF, 11);
+        addNumberValidation(RG, 9);
+        addNumberValidation(CEP, 8);
+
+        // Apply KeyListener to ensure no numbers are allowed
+        addTextValidation(textoNome);
+        addTextValidation(cidade);
+        addTextValidation(estado);
+
+        // Buttons
+        JButton btn_Cadastrar = new JButton("Cadastrar");
+
+        // Add ActionListener to the button
+        btn_Cadastrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Retrieve data from text fields
+                String nome = textoNome.getText();
+                String emailText = email.getText();
+                String telefoneText = telefone.getText();
+                String cpf = CPF.getText();
+                String rg = RG.getText();
+                String enderecoText = endereco.getText();
+                String cep = CEP.getText();
+                String cidadeText = cidade.getText();
+                String estadoText = estado.getText();
+
+                // Display the new tela_DadosClientes
+                tela_Principal telaDados = new tela_Principal(nome, emailText, telefoneText, cpf, rg, enderecoText, cep, cidadeText, estadoText);
+                telaDados.setVisible(true);
+
+                // Close the current telaCadastrar
+                telaCadastrar.dispose();
+            }
+        });
+
+        telaCadastrar.setLayout(null);
+        telaCadastrar.setSize(1080, 675);
+
+        // Labels
+        telaCadastrar.add(cadastrarCliente);
+        cadastrarCliente.setBounds(350, 50, 500, 50);
+
+        telaCadastrar.add(nomeLabel);
+        nomeLabel.setBounds(20, 150, 50, 25);
+
+        telaCadastrar.add(emailLabel);
+        emailLabel.setBounds(20, 200, 50, 25);
+
+        telaCadastrar.add(telefoneLabel);
+        telefoneLabel.setBounds(20, 250, 60, 25);
+
+        telaCadastrar.add(cpfLabel);
+        cpfLabel.setBounds(20, 300, 50, 25);
+
+        telaCadastrar.add(rgLabel);
+        rgLabel.setBounds(400, 300, 50, 25);
+
+        telaCadastrar.add(enderecoLabel);
+        enderecoLabel.setBounds(20, 350, 60, 25);
+
+        telaCadastrar.add(cepLabel);
+        cepLabel.setBounds(400, 350, 50, 25);
+
+        telaCadastrar.add(cidadeLabel);
+        cidadeLabel.setBounds(20, 400, 50, 25);
+
+        telaCadastrar.add(estadoLabel);
+        estadoLabel.setBounds(400, 400, 50, 25);
+
+        //Caixas de Texto
+        telaCadastrar.add(textoNome);
+        textoNome.setBounds(80, 150, 300, 25);
+
+        telaCadastrar.add(email);
+        email.setBounds(80, 200, 300, 25);
+
+        telaCadastrar.add(telefone);
+        telefone.setBounds(80, 250, 300, 25);
+
+        telaCadastrar.add(CPF);
+        CPF.setBounds(80, 300, 300, 25);
+
+        telaCadastrar.add(RG);
+        RG.setBounds(450, 300, 300, 25);
+
+        telaCadastrar.add(endereco);
+        endereco.setBounds(80, 350, 300, 25);
+
+        telaCadastrar.add(CEP);
+        CEP.setBounds(450, 350, 300, 25);
+
+        telaCadastrar.add(cidade);
+        cidade.setBounds(80, 400, 300, 25);
+
+        telaCadastrar.add(estado);
+        estado.setBounds(450, 400, 300, 25);
+
+        //Botões
+        telaCadastrar.add(btn_Cadastrar);
+        btn_Cadastrar.setBounds(20, 575, 100, 25);
+
+        telaCadastrar.setVisible(true);
+    }
+
+    private static void addNumberValidation(JTextField textField, int maxLength) {
+        textField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || textField.getText().length() >= maxLength) {
+                    e.consume(); // Ignore this event if the character is not a digit or if the max length is reached
+                }
+            }
+        });
+    }
+
+    private static void addTextValidation(JTextField textField) {
+        textField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (Character.isDigit(c)) {
+                    e.consume(); // Ignore this event if the character is a digit
+                }
+            }
+        });
+    }
+
+    public static void main(String[] args){
+        telaCadastrar();
+    }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+tela_Principal.java
+
+import javax.swing.*;
+import java.awt.*;
+
+public class tela_Principal extends JFrame {
+
+    public tela_Principal(String nome, String email, String telefone, String cpf, String rg, String endereco, String cep, String cidade, String estado) {
+        setTitle("Dados do Cliente");
+        setSize(500, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Create and set up the content pane.
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(10, 1));
+
+        // Labels to display the client's data
+        panel.add(new JLabel("Nome: " + nome));
+        panel.add(new JLabel("Email: " + email));
+        panel.add(new JLabel("Telefone: " + telefone));
+        panel.add(new JLabel("CPF: " + cpf));
+        panel.add(new JLabel("RG: " + rg));
+        panel.add(new JLabel("Endereço: " + endereco));
+        panel.add(new JLabel("CEP: " + cep));
+        panel.add(new JLabel("Cidade: " + cidade));
+        panel.add(new JLabel("Estado: " + estado));
+
+        // Add the panel to the frame
+        add(panel);
+
+        // Display the window.
+        setVisible(true);
+    }
+
+
+    public static void main(String[] args){
+
+    }
+
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------

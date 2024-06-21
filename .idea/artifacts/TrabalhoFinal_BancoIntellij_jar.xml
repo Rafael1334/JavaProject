@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="TrabalhoFinal_BancoIntellij:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TrabalhoFinal_BancoIntellij_jar</output-path>
+    <root id="archive" name="TrabalhoFinal_BancoIntellij.jar">
+      <element id="module-output" name="TrabalhoFinal_BancoIntellij" />
+    </root>
+  </artifact>
+</component>
